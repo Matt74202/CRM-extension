@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= title %></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="/styles.css"> -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #2e2e2e; /* Fond sombre */
+            color: white; /* Texte en blanc */
+        }
+        .container {
+            background-color: #d6d6d6; /* Fond gris clair */
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .table th, .table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+        .table-dark {
+            background-color: #333; /* Fond sombre pour l'entête du tableau */
+        }
+        .table-bordered th, .table-bordered td {
+            border-color: #32CD32; /* Bordure verte */
+        }
+        .btn-primary {
+            background-color: #32CD32; /* Boutons verts */
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #228B22; /* Changement de couleur au survol */
+        }
+        .btn-icon {
+            font-size: 18px;
+            color: white;
+        }
+        .btn-icon:hover {
+            color: #228B22; /* Effet au survol */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="text-center mb-4"><%= title %></h1>
+        <table class="table table-striped table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID Lead</th>
+                    <th>Nom du Manager</th>
+                    <th>Nom du Client</th>
+                    <th>Montant Expense</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (leadSummaries && leadSummaries.length > 0) { %>
+                    <% leadSummaries.forEach(lead => { %>
+                        <tr>
+                            <td><%= lead.leadId %></td>
+                            <td><%= lead.managerUsername %></td>
+                            <td><%= lead.customerName %></td>
+                            <td><%= Number(lead.amount).toFixed(2) %> €</td>
+                            <td>
+                                <a href="/lead/edit/<%= lead.leadId %>" 
+                                   class="btn btn-primary btn-sm btn-icon">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="/lead/delete/<%= lead.leadId %>" 
+                                   class="btn btn-primary btn-sm btn-icon">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="5" class="text-center">Aucun lead trouvé</td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+        <a href="/dashboard/dashboard" class="btn btn-primary mt-3">Retour au Dashboard</a>
+    </div>
+</body>
+</html>

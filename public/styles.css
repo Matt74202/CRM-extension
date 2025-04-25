@@ -1,0 +1,121 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #121212; /* Noir profond */
+    margin: 0;
+    padding: 0;
+    color: #e0e0e0; /* Gris clair pour le texte */
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 30px;
+    background: #1e1e1e; /* Gris très foncé */
+    border-radius: 8px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+    border: 1px solid #333; /* Bordure grise */
+}
+
+button {
+    background-color: #4CAF50; /* Vert */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #45a049; /* Vert plus foncé au survol */
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.row {
+    flex-grow: 1;
+}
+
+.card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    background-color: #2a2a2a; /* Gris foncé */
+    color: #ffffff;
+    border: 1px solid #4CAF50; /* Bordure verte */
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+canvas {
+    width: 100% !important;
+    height: auto !important;
+    background-color: #1e1e1e; /* Gris très foncé */
+    border-radius: 4px;
+    padding: 10px;
+}
+
+/* Styles supplémentaires pour améliorer la cohérence */
+h1, h2, h3, h4, h5, h6 {
+    color: #4CAF50; /* Vert pour les titres */
+}
+
+a {
+    color: #4CAF50; /* Vert pour les liens */
+    text-decoration: none;
+}
+
+a:hover {
+    color: #45a049; /* Vert plus foncé au survol */
+    text-decoration: underline;
+}
+
+input, select, textarea {
+    background-color: #2a2a2a !important; /* Gris foncé */
+    color: #ffffff !important;
+    border: 1px solid #333 !important;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #4CAF50 !important; /* Bordure verte en focus */
+    box-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.25) !important;
+}
+
+/* Style pour les éléments de tableau */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+th {
+    background-color: #4CAF50; /* Vert */
+    color: white;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid #333; /* Gris */
+    background-color: #2a2a2a; /* Gris foncé */
+}
+
+tr:hover td {
+    background-color: #333; /* Gris plus clair au survol */
+}

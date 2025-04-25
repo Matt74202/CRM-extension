@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Modifier le Ticket #<%= ticketId %></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="/styles.css"> -->
+    <style>
+        body {
+            background-color: #2e2e2e; /* Fond sombre */
+            color: white; /* Texte blanc pour contraster */
+        }
+        .container {
+            background-color: #d6d6d6; /* Fond gris clair */
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .form-label {
+            color: #32CD32; /* Vert pour les labels */
+        }
+        .form-control {
+            background-color: #f8f9fa; /* Fond clair pour les champs de saisie */
+            color: black; /* Texte noir dans les champs */
+            border: 1px solid #32CD32; /* Bordure verte */
+        }
+        .form-control:focus {
+            border-color: #228B22; /* Bordure plus foncée au focus */
+            box-shadow: 0 0 5px #228B22; /* Effet d'ombre au focus */
+        }
+        .btn-primary {
+            background-color: #32CD32; /* Boutons verts */
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #228B22; /* Changement au survol */
+        }
+        .btn-secondary {
+            background-color: #6c757d; /* Gris pour le bouton secondaire */
+            border: none;
+        }
+        .btn-secondary:hover {
+            background-color: #5a6268; /* Gris foncé au survol */
+        }
+        .alert-danger {
+            background-color: #ff4d4d; /* Fond rouge pour les erreurs */
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="text-center mb-4">Modifier le Ticket #<%= ticketId %></h1>
+
+        <% if (error) { %>
+            <div class="alert alert-danger" role="alert">
+                <%= error %>
+            </div>
+        <% } %>
+
+        <form action="/ticket/edit/<%= ticketId %>" method="POST" class="needs-validation" novalidate>
+            <div class="mb-3">
+                <label for="amount" class="form-label">Montant (€)</label>
+                <input 
+                    type="number" 
+                    class="form-control" 
+                    id="amount" 
+                    name="amount" 
+                    step="0.01" 
+                    value="<%= ticketAmount || '' %>"
+                    required
+                >
+                <div class="invalid-feedback">
+                    Veuillez entrer un montant valide
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <a href="/ticket/ticket" class="btn btn-secondary">Annuler</a>
+                <button type="submit" class="btn btn-primary">Mettre à jour</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Validation Bootstrap
+        (function () {
+            'use strict'
+            var forms = document.querySelectorAll('.needs-validation')
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    </script>
+</body>
+</html>

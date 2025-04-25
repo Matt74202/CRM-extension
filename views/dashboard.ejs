@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- <link rel="stylesheet" href="/styles.css"> -->
+    <style>
+        body {
+            background-color: #2e2e2e;
+            color: white;
+        }
+        .card {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            color: black;
+        }
+        .card h4, .card h2 {
+            color: #aed6dc;
+        }
+        .btn-custom {
+            background-color: #4a536b;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .btn-custom:hover {
+            background-color: #228B22;
+            color: white;
+        }
+        canvas {
+            max-width: 300px;
+            max-height: 300px;
+            margin: auto;
+        }
+        .large-card {
+            padding: 20px;
+            background-color: #d6d6d6;
+        }
+        .large-card canvas {
+            max-width: 100%;
+            height: 400px !important;
+        }
+        .topbar {
+            background-color: #343a40;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+        .btn-topbar {
+            background-color: #17a2b8;
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .btn-topbar:hover {
+            background-color: #138496;
+        }
+    </style>
+</head>
+<body>
+    <div class="topbar">
+        <h2>Dashboard</h2>
+        <a href="/rate/rate" class="btn btn-topbar">Configurer le taux</a>
+    </div>
+    <div class="container mt-4">
+        <h1 class="text-center">Dashboard</h1>
+        <div class="row text-center">
+            <div class="col-md-4">
+                <div class="card p-2">
+                    <h4>Total Clients</h4>
+                    <h2 id="totalClients"><%= customerCount %></h2>
+                    <a href="/client/client-summary" class="btn btn-custom">Voir détails</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-2">
+                    <h4>Total Tickets</h4>
+                    <h2 id="totalTickets"><%= ticketCount %></h2>
+                    <a href="/ticket/ticket" class="btn btn-custom">Voir détails</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-2">
+                    <h4>Total Leads</h4>
+                    <h2 id="totalLeads"><%= leadCount %></h2>
+                    <a href="/lead/lead-summary" class="btn btn-custom">Voir détails</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card p-2">
+                    <canvas id="percentageChart"></canvas>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card p-2">
+                    <canvas id="topCustomersChart"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="card large-card">
+                    <canvas id="barChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Initialisation des données pour les graphiques
+        const ticketPercentage = <%= ticketPercentage %>;
+        const leadPercentage = <%= leadPercentage %>;
+        const ctx = document.getElementById('percentageChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Tickets', 'Leads'],
+                datasets: [{
+                    data: [ticketPercentage, leadPercentage],
+                    backgroundColor: ['#5e057e', '#c299d0']
+                }]
+            },
+            options: {
+                responsive: true,
+            }
+        });
+
+        const budgetSum = <%= budgetSum %>;
+        const ticketSum = <%= ticketSum %>;
+        const leadSum = <%= leadSum %>;
+        const ctxBar = document.getElementById('barChart').getContext('2d');
+        new Chart(ctxBar, {
+            type: 'bar',
+            data: {
+                labels: ['Budget', 'Tickets', 'Leads'],
+                datasets: [{
+                    label: 'Sommes en €',
+                    data: [budgetSum, ticketSum, leadSum],
+                    backgroundColor: ['#f3858b', '#ed335f', '#761137']
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+
+        const topCustomers = <%- topCustomers %>;
+        const topBudgets = <%- topBudgets %>;
+        const ctxDoughnut = document.getElementById('topCustomersChart').getContext('2d');
+        new Chart(ctxDoughnut, {
+            type: 'doughnut',
+            data: {
+                labels: topCustomers,
+                datasets: [{
+                    data: topBudgets,
+                    backgroundColor: ['#551fbd', '#a2eacb', '#FFCE56']
+                }]
+            },
+            options: {
+                responsive: true,
+            }
+        });
+    </script>
+</body>
+</html>
